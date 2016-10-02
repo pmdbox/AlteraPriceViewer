@@ -3,6 +3,10 @@
  */
 public class AlteraPriceViewer {
     public static void main(String[] args) {
+
         System.out.println("Print price file to console.");
+        if (args.length>0) {
+            System.out.println(args[0]);
+        }
     }
 }
