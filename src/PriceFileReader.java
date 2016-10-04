@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Created by maryan on 03.10.2016.
@@ -36,35 +38,36 @@ public class PriceFileReader {
 
         File file=new File(filename);
         if(file.exists()) {
-            long filelength = file.length();
-            long bytesread =0;
             FileInputStream inputstream = null;
-            InputStreamReader reader=null;
-            try{
-                inputstream = new FileInputStream(file);
-                reader = new InputStreamReader(inputstream,"UTF-8");
+            Scanner reader=null;
 
-                int bytecontent;
-                while ((bytecontent = reader.read()) != -1) {
-                    content+=(char) bytecontent;
-                    bytesread++;
-                    System.out.print("Bytes read "+bytesread+" of "+filelength+". It is "+(100*bytesread/filelength)+"% of full length of file. \r");
+            try {
+                    inputstream = new FileInputStream(file);
+                    reader = new Scanner(inputstream, "UTF-8");
+
+                    while (reader.hasNextLine()) {
+                        String line = reader.nextLine();
+                        System.out.println(line);
+                    }
                 }
-                System.out.println();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
+            catch (FileNotFoundException exc)
+            {
+                System.out.println(exc.getMessage());
             }
             finally {
-                if(reader !=null){
+                if (inputstream != null) {
                     try{
-                        reader.close();
+                        inputstream.close();
                     }
-                    catch (IOException e) {
-                        e.printStackTrace();
+                    catch (IOException exc){
+                        System.out.println(exc.getMessage());
                     }
                 }
+                if (reader != null) {
+                    reader.close();
+                }
             }
+
         }
         else
         {
