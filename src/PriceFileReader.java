@@ -33,8 +33,11 @@ public class PriceFileReader {
     }
 
     private void ReadFile(){
+
         File file=new File(filename);
         if(file.exists()) {
+            long filelength = file.length();
+            long bytesread =0;
             FileInputStream inputstream = null;
             InputStreamReader reader=null;
             try{
@@ -44,7 +47,10 @@ public class PriceFileReader {
                 int bytecontent;
                 while ((bytecontent = reader.read()) != -1) {
                     content+=(char) bytecontent;
+                    bytesread++;
+                    System.out.print("Bytes read "+bytesread+" of "+filelength+". It is "+(100*bytesread/filelength)+"% of full length of file. \r");
                 }
+                System.out.println();
             }
             catch (IOException e) {
                 e.printStackTrace();
