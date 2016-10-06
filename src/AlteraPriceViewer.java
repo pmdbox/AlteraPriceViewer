@@ -5,6 +5,9 @@
 public class AlteraPriceViewer {
     public static void main(String[] args) {
 
+        dbImport db = new dbImport();
+        db.clearTable();
+
         String filename = args[0];
         String ext = "";
 
@@ -16,12 +19,21 @@ public class AlteraPriceViewer {
         }
         if (ext.equals("txt")){
             PriceFileReader2 price=new PriceFileReader2(filename);
+
+            while(price.hasNextRow()){
+                System.out.print("Added "+price.getCurrentLineNum()+" lines.\r");
+                if(price.getCurrentLineNum()>6){
+                    db.addRow(price.getNextRow());
+                }
+                else{
+                    price.getNextRow();
+                }
+            }
         }
 
 
-        dbImport db = new dbImport();
-        db.clearTable();
-        db.addRow(args);
+
+
 
         if (args.length>0) {
 /*

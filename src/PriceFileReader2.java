@@ -11,57 +11,36 @@ import java.util.Scanner;
 public class PriceFileReader2 {
 
     private String filename;
-    private String content;
+    private File file=null;
+    private FileInputStream inputstream = null;
+    private Scanner reader=null;
+    private int currentLineNum;
 
-    PriceFileReader2(){
-        filename = "";
-        content = "";
-    }
-
-    PriceFileReader2(String file){
-        filename = file;
-        content = "";
-        ReadFile();
-    }
-
-    public void setFilename(String file){
-        filename = file;
-        content = "";
-        ReadFile();
-    }
-
-    public String  getFilename(){
-        return filename;
-    }
-
-    private void ReadFile(){
-
-        File file=new File(filename);
+    PriceFileReader2(String filename){
+        currentLineNum = 0;
+        file=new File(filename);
         if(file.exists()) {
-            FileInputStream inputstream = null;
-            Scanner reader=null;
-            int stringcounter=0;
-
             try {
                 inputstream = new FileInputStream(file);
                 reader = new Scanner(inputstream, "UTF-8");
-
+/*
                 while (reader.hasNextLine()) {
 
                     String line = reader.nextLine();
                     String values[] = line.split("\t");
-                    stringcounter++;
                     //System.out.println(line);
                     for (int i=0;i<values.length;i++) {
                         System.out.println(values[i]);
                     }
-                    System.out.println(stringcounter+": "+values.length);
+                    System.out.println(values.length);
                 }
+*/
             }
             catch (FileNotFoundException exc)
             {
                 System.out.println(exc.getMessage());
             }
+            /*
             finally {
                 if (inputstream != null) {
                     try{
@@ -75,16 +54,40 @@ public class PriceFileReader2 {
                     reader.close();
                 }
             }
+            */
 
         }
         else
         {
             System.out.println("Wrong filename!");
         }
+
     }
 
-    public String getContent(){
-        return content;
+    public boolean hasNextRow(){
+        if(reader==null) {
+            return false;
+        }
+        else
+        {
+            return reader.hasNextLine();
+        }
     }
+
+    public String[] getNextRow(){
+        String line = reader.nextLine();
+        String values[] = line.split("\t");
+        currentLineNum++;
+        //System.out.println(line);
+        //for (int i=0;i<values.length;i++) {
+        //    System.out.println(values[i]);
+        //}
+        return values;
+    }
+
+    public int getCurrentLineNum(){
+        return currentLineNum;
+    }
+
 
 }
