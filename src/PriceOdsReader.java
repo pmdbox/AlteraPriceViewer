@@ -33,13 +33,10 @@ public class PriceOdsReader {
     private void ReadFile() {
         File file = new File(filename);
         if (file.exists()) {
-            System.out.println();
-            System.getProperty("java.classpath");
 
             final OpenDocument doc = new OpenDocument();
             doc.loadFrom(file);
             doc.getBody();
-//            doc.getMasterStyles();
 
 //            DefaultDocumentPrinter printer = new DefaultDocumentPrinter();
 //            printer.print(doc);

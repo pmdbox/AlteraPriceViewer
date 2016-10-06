@@ -40,14 +40,22 @@ public class PriceFileReader2 {
         if(file.exists()) {
             FileInputStream inputstream = null;
             Scanner reader=null;
+            int stringcounter=0;
 
             try {
                 inputstream = new FileInputStream(file);
                 reader = new Scanner(inputstream, "UTF-8");
 
                 while (reader.hasNextLine()) {
+
                     String line = reader.nextLine();
-                    System.out.println(line);
+                    String values[] = line.split("\t");
+                    stringcounter++;
+                    //System.out.println(line);
+                    for (int i=0;i<values.length;i++) {
+                        System.out.println(values[i]);
+                    }
+                    System.out.println(stringcounter+": "+values.length);
                 }
             }
             catch (FileNotFoundException exc)
