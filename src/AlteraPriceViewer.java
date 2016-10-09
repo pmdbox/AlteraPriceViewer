@@ -1,12 +1,15 @@
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+//import com.sun.org.apache.xpath.internal.operations.String;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by maryan on 02.10.2016.
@@ -73,9 +76,21 @@ public class AlteraPriceViewer {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+//            System.out.println(exchange.getRequestURI().getQuery());
+
+            Map <String,String>params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
+/*
+            System.out.println(params.get("text"));
+            System.out.println(params.get("sort"));
+            System.out.println(params.get("sortdirection"));
+*/
             String fileId = exchange.getRequestURI().getPath();
-            //fileId=fileId.substring(1);
-            fileId="scada.lviv.ua"+fileId.replace("/",File.separator);
+            fileId=fileId.substring(1);
+            fileId=fileId.replace("/",File.separator);
+            //System.out.println(fileId);
+            if (fileId.isEmpty()){
+                fileId = "index.html";
+            }
             System.out.println(fileId);
             File file = getFile(fileId);
 
@@ -114,6 +129,18 @@ public class AlteraPriceViewer {
             }
 
         }
-    }
 
+        public static Map<String, String> queryToMap(String query){
+            Map<String, String> result = new HashMap<String, String>();
+            for (String param : query.split("&")) {
+                String pair[] = param.split("=");
+                if (pair.length>1) {
+                    result.put(pair[0], pair[1]);
+                }else{
+                    result.put(pair[0], "");
+                }
+            }
+            return result;
+        }
+    }
 }
