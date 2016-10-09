@@ -3,11 +3,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 //import com.sun.org.apache.xpath.internal.operations.String;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,17 +78,18 @@ public class AlteraPriceViewer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             String fileId = exchange.getRequestURI().getPath();
+            Map <String,String>params=null;
 
             if(exchange.getRequestURI().getQuery()==null){
 //                System.out.println("Query parameters are absent.");
             }
             else{
-                Map <String,String>params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
-/*
+                params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
+
                 System.out.println(params.get("text"));
                 System.out.println(params.get("sort"));
                 System.out.println(params.get("sortdirection"));
-*/
+
             }
 
             fileId=fileId.substring(1);
@@ -102,6 +101,14 @@ public class AlteraPriceViewer {
             System.out.println(fileId);
             File file = getFile(fileId);
 
+            String ext = "";
+            int i = fileId.lastIndexOf('.');
+            int p = Math.max(fileId.lastIndexOf('/'), fileId.lastIndexOf('\\'));
+            if (i > p) {
+                ext = fileId.substring(i+1);
+            }
+            System.out.println(ext);
+
             if (file == null) {
                 String response = "Error 404 File not found.";
                 exchange.sendResponseHeaders(404, response.length());
@@ -110,6 +117,37 @@ public class AlteraPriceViewer {
                 output.flush();
                 output.close();
                 System.out.println("404");
+            } else if (ext.equals("html")) {
+                System.out.println("200 HTML");
+                exchange.sendResponseHeaders(200, 0);
+                OutputStream output = exchange.getResponseBody();
+                FileInputStream fs = new FileInputStream(file);
+
+                String htmlbody="";
+                InputStreamReader htmlreader = new InputStreamReader(fs,"UTF-8");
+
+                int bytecontent;
+                while ((bytecontent = htmlreader.read()) != -1) {
+                    htmlbody+=(char) bytecontent;
+                }
+
+
+                if(params!=null) {
+
+                    htmlbody = htmlbody.replace("AAAtextAAA", URLDecoder.decode(params.get("text"),"UTF-8"));
+                    htmlbody = htmlbody.replace("value=\"" + params.get("sort") + "\"", "value=\"" + params.get("sort") + "\""+" selected=\"selected\"");
+                    htmlbody = htmlbody.replace("value=\"" + params.get("sortdirection") + "\"", "value=\"" + params.get("sortdirection") + "\""+" selected=\"selected\"");
+                }
+                else
+                {
+                    htmlbody = htmlbody.replace("AAAtextAAA", "");
+                }
+                output.write(htmlbody.getBytes("UTF-8"), 0, htmlbody.length());
+
+
+                output.flush();
+                output.close();
+                fs.close();
             } else {
                 System.out.println("200");
                 exchange.sendResponseHeaders(200, 0);

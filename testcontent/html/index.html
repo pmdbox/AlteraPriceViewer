@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="uk">  
+	<head>    
+		<!-- Adding header code into html-->
+		<!---------------------------------->
+		<!--
+<meta http-equiv="refresh" content="10; URL=index.html">		
+		-->
+<meta charset="utf-8">         
+<meta http-equiv="X-UA-Compatible" content="IE=edge">    
+<meta name="description" content="Залишки на складі.">    
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<title>Залишки на складі.</title>  
+<!-- Add to homescreen for Chrome on Android -->    
+<meta name="mobile-web-app-capable" content="yes">    
+<link rel="icon" sizes="192x192" href="images/android-desktop.png">    
+<!-- Add to homescreen for Safari on iOS -->    
+<meta name="apple-mobile-web-app-capable" content="yes">    
+<meta name="apple-mobile-web-app-status-bar-style" content="black">    
+<meta name="apple-mobile-web-app-title" content="Залишки на складі.">    
+<link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">    
+<!-- Tile icon for Win8 (144x144 + tile color) -->    
+<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">    
+<meta name="msapplication-TileColor" content="#3372DF">    
+<link rel="shortcut icon" href="images/favicon.png" />    
+<link rel="stylesheet" href="assets/material.min.css">    
+<link rel="stylesheet" href="assets/styles.css">    
+<link rel="stylesheet" href="assets/custom.css">    
+<!-- Connecting jQuery to the site. --> 		
+<script type="text/javascript" 
+src="js/jquery-1.8.2.min.js"></script>     
+<script type="text/javascript"  
+src="assets/material.min.js"></script> 	
+		<!---------------------------------->	
+		
+	</head>	
+	<body>    
+		<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">      
+			<!-- Adding sidebar code into html-->
+			<!---------------------------------->
+<header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">        
+	<div class="mdl-layout__header-row">          
+		<span class="mdl-layout-title">Залишки на складі.
+		</span>        
+	</div>      
+</header>  
+<div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+	<header class="demo-drawer-header">
+		<div  style="text-align:center;">
+			<img src="images/sitelogo.png" width="64" height="64" alt="Sitelogo"><br>
+			<b>Залишки на складі.</b><br> 
+			<span style=\"font-family:verdana;font-size:70%;\">       
+				Версія 1.0		
+			</span>	
+		</div>        	
+	</header>
+	<nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">          
+		<a class="mdl-navigation__link" href="index.html">
+		<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_comfy</i>Залишки</a>          
+		<a class="mdl-navigation__link" href="index.html">
+		<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">file_upload</i>Імпорт</a>          
+		<div class="mdl-layout-spacer">
+		</div>		    	
+		<div style="text-align: center;">          
+            <a href="http://www.scada.lviv.ua" target="_blank">          
+			<img src="images/logo.png">          </a>          
+            <p>			&#169; OSS company, 2016 			
+			</p>			
+		</div>        	         
+	</nav>   
+</div> 
+			<!---------------------------------->
+			
+			<main class="mdl-layout__content mdl-color--grey-100">
+
+				<form action="index.html"  method="GET" enctype="multipart/form-data">
+					<div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+
+						<input type="text" name="text" value="AAAtextAAA" class="mdl-textfield__input mdl-cell--6-col xstyle3">
+
+						<select name="sort" class="mdl-textfield__input mdl-cell--2-col xstyle3">
+							<option value="asis">Як є</option>
+							<option value="id">Артикул</option>
+							<option value="description">Опис</option>
+							<option value="value">Ціна</option>
+							<option value="onstorage">Залишки</option>
+							<option value="onreserve">Резерв</option>
+						</select>
+
+						<select name="sortdirection" value="AAAsortdirectionAAAA" class="mdl-textfield__input mdl-cell--2-col xstyle3">
+							<option value="asc">За зростанням</option>
+							<option value="desc">За спаданням</option>
+						</select>
+
+						<input type="submit" value="Пошук" class="mdl-button mdl-js-button mdl-button--raised mdl-cell--2-col xstyle3">
+					</div>
+				</form>
+<!--				
+				<div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">   
+
+				<div class="xstyle2">
+					
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-data-table-custom full-width ">
+-->					
+					<table class="mdl-data-table mdl-js-data-table mdl-data-table-custom   demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+						<tr>
+							<th class="mdl-data-table__cell--non-numeric">Артикул</th>
+							<th class="mdl-data-table__cell--non-numeric full-width ">Опис</th>
+							<th class="mdl-data-table__cell--non-numeric">УКТЗЕД</th>
+							<th>Ціна</th>
+							<th class="mdl-data-table__cell--non-numeric">Валюта</th>
+							<th>Залишок</th>						
+							<th>Резерв</th>						
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td class="mdl-data-table__cell--non-numeric">ESV115X2SFA</td>
+							<td class="mdl-data-table__cell--non-numeric">Перетворювач частоти ESV115X2SFA, 1.5 кВт, 220В</td>
+							<td class="mdl-data-table__cell--non-numeric">147802257</td>
+							<td>1700.45</td>
+							<td class="mdl-data-table__cell--non-numeric">EUR</td>
+							<td>100</td>
+							<td>15</td>
+						</tr>
+					</table>
+<!--				
+				</div>
+
+			</div>      
+-->
+		</main>          
+	</div>       
+</body>
+</html>
