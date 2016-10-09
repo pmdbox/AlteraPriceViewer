@@ -11,6 +11,6 @@ set CLASSPATH=C:\Users\maryan\IdeaProjects\AlteraPriceViewer\lib\sqlite-jdbc-3.1
 echo %CLASSPATH%
 java AlteraPriceViewer x2.txt
 
-index.html?text=esv115&sort=articul&sortdirection=asc
+http://localhost:8000/index.html?text=esv115&sort=articul&sortdirection=asc
 
 

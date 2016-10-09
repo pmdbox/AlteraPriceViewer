@@ -18,6 +18,8 @@ import java.util.Map;
 public class AlteraPriceViewer {
     public static void main(String[] args) {
 
+        int serverHttpPort=8000;
+
 //****************************************************
 //**********   Import PRICE from TXT file.
 
@@ -49,7 +51,7 @@ public class AlteraPriceViewer {
             }
         }
         else{
-            System.out.println("Filename is missing.");
+            System.out.println("Filename for price import is missing.");
         }
 
 //**********   End of import PRICE.
@@ -59,10 +61,11 @@ public class AlteraPriceViewer {
 //**********   Start Web server.
         try
         {
-            HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(serverHttpPort), 0);
             server.createContext("/", new StaticFileServer());
             server.setExecutor(null); // creates a default executor
             server.start();
+            System.out.println("Web-server was started succesfully at port number "+serverHttpPort);
         }
         catch (IOException e)
         {
@@ -76,15 +79,20 @@ public class AlteraPriceViewer {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-//            System.out.println(exchange.getRequestURI().getQuery());
-
-            Map <String,String>params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
-/*
-            System.out.println(params.get("text"));
-            System.out.println(params.get("sort"));
-            System.out.println(params.get("sortdirection"));
-*/
             String fileId = exchange.getRequestURI().getPath();
+
+            if(exchange.getRequestURI().getQuery()==null){
+//                System.out.println("Query parameters are absent.");
+            }
+            else{
+                Map <String,String>params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
+/*
+                System.out.println(params.get("text"));
+                System.out.println(params.get("sort"));
+                System.out.println(params.get("sortdirection"));
+*/
+            }
+
             fileId=fileId.substring(1);
             fileId=fileId.replace("/",File.separator);
             //System.out.println(fileId);
