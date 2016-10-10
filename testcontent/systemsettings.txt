@@ -3,6 +3,7 @@ date;java AlteraPriceViewer x2.txt;date
 CLASSPATH=/home/maryan/IdeaProjects/AlteraPriceViewer/lib/jOpenDocument-1.3.jar:/home/maryan/IdeaProjects/AlteraPriceViewer/lib/sqlite-jdbc-3.14.2.1.jar:/home/maryan/IdeaProjects/AlteraPriceViewer/out/production/AlteraPriceViewer/
 export CLASSPATH
 echo $CLASSPATH
+cd /home/maryan/IdeaProjects/AlteraPriceViewer/out/production/AlteraPriceViewer
 date;java AlteraPriceViewer x2.txt;date
 
 Windows

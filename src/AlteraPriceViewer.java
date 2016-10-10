@@ -85,21 +85,21 @@ public class AlteraPriceViewer {
             }
             else{
                 params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
-
+/*
                 System.out.println(params.get("text"));
                 System.out.println(params.get("sort"));
                 System.out.println(params.get("sortdirection"));
-
+*/
             }
 
             fileId=fileId.substring(1);
             fileId=fileId.replace("/",File.separator);
-            //System.out.println(fileId);
             if (fileId.isEmpty()){
                 fileId = "index.html";
             }
             System.out.println(fileId);
-            File file = getFile(fileId);
+            File file = new File(fileId);
+            //System.out.println(file.getAbsoluteFile());
 
             String ext = "";
             int i = fileId.lastIndexOf('.');
@@ -107,7 +107,7 @@ public class AlteraPriceViewer {
             if (i > p) {
                 ext = fileId.substring(i+1);
             }
-            System.out.println(ext);
+            //System.out.println(ext);
 
             if (file == null) {
                 String response = "Error 404 File not found.";
