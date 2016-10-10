@@ -17,12 +17,12 @@ public class AlteraPriceViewer {
     public static void main(String[] args) {
 
         int serverHttpPort=8000;
+        dbImport db = new dbImport();
 
 //****************************************************
 //**********   Import PRICE from TXT file.
 
         if (args.length>0) {
-            dbImport db = new dbImport();
             db.clearTable();
 
             String filename = args[0];
@@ -79,17 +79,16 @@ public class AlteraPriceViewer {
         public void handle(HttpExchange exchange) throws IOException {
             String fileId = exchange.getRequestURI().getPath();
             Map <String,String>params=null;
+            String datarows=null;
 
             if(exchange.getRequestURI().getQuery()==null){
 //                System.out.println("Query parameters are absent.");
             }
             else{
                 params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
-/*
-                System.out.println(params.get("text"));
-                System.out.println(params.get("sort"));
-                System.out.println(params.get("sortdirection"));
-*/
+                dbImport dbselect=new dbImport();
+                String pricedata=null;
+                datarows=dbselect.getSelection(URLDecoder.decode(params.get("text"),"UTF-8"),params.get("sort"),params.get("sortdirection"));
             }
 
             fileId=fileId.substring(1);
@@ -142,8 +141,12 @@ public class AlteraPriceViewer {
                 {
                     htmlbody = htmlbody.replace("AAAtextAAA", "");
                 }
-                output.write(htmlbody.getBytes("UTF-8"), 0, htmlbody.length());
 
+                if(datarows!=null){
+                    htmlbody = htmlbody.replace("<!--AAAdatarowsAAA-->", datarows);
+                }
+
+                output.write(htmlbody.getBytes("UTF-8"), 0, htmlbody.getBytes().length);
 
                 output.flush();
                 output.close();

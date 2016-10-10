@@ -43,10 +43,10 @@ public class dbImport {
         try {
             Statement stmt = null;
             stmt=c.createStatement();
-            String sql = "create table if not exists price (partnum text, currency text, addinfo text, id text, uktzed text, description text, value real, onstorage real, onreserve real)";
+            String sql = "create table if not exists price (partnum text collate nocase, currency text, addinfo text, id text, uktzed text, description text collate nocase, value real, onstorage real, onreserve real) ";
             stmt.executeUpdate(sql);
             stmt.close();
-            System.out.println("Database created.");
+            //System.out.println("Database created.");
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
@@ -113,6 +113,71 @@ public class dbImport {
             System.exit(0);
         }
 
+    }
+
+    public String getSelection(String text,String sort,String sortdirection){
+        String result=null;
+        int counter=0;
+
+        try {
+            Statement stmt = null;
+            stmt=c.createStatement();
+            String sql=null;
+            if(text.length()>2) {
+                if (!sort.equals("asis")) {
+                    sql = "select * from price where (partnum like \'%" + text + "%\' or description like \'%" + text + "%\') collate nocase order by " + sort + " " + sortdirection;
+                } else {
+                    sql = "select * from price where (partnum like \'%" + text + "%\' or description like \'%" + text + "%\') collate nocase";
+                }
+
+                //System.out.println(sql);
+                ResultSet rs = stmt.executeQuery(sql);
+
+                result = "\n";
+                while (rs.next()) {
+                    result += "<tr>\n";
+
+                    result += "<td  class=\"mdl-data-table__cell--non-numeric\">\n";
+                    result += rs.getString("partnum");
+                    result += "</td>\n";
+
+                    result += "<td  class=\"mdl-data-table__cell--non-numeric\">\n";
+                    result += rs.getString("description");
+                    result += "</td>\n";
+
+                    result += "<td  class=\"mdl-data-table__cell--non-numeric\">\n";
+                    result += rs.getString("uktzed");
+                    result += "</td>\n";
+
+                    result += "<td>\n";
+                    result += rs.getString("value");
+                    result += "</td>\n";
+
+                    result += "<td  class=\"mdl-data-table__cell--non-numeric\">\n";
+                    result += rs.getString("currency");
+                    result += "</td>\n";
+
+                    result += "<td>\n";
+                    result += rs.getString("onstorage");
+                    result += "</td>\n";
+
+                    result += "<td>\n";
+                    result += rs.getString("onreserve");
+                    result += "</td>\n";
+
+                    result += "</tr>\n";
+                    counter++;
+                }
+
+                rs.close();
+            }
+            stmt.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+        return result;
     }
 
 }
