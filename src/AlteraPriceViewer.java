@@ -130,7 +130,6 @@ public class AlteraPriceViewer {
                     htmlbody+=(char) bytecontent;
                 }
 
-
                 if(params!=null) {
 
                     htmlbody = htmlbody.replace("AAAtextAAA", URLDecoder.decode(params.get("text"),"UTF-8"));
@@ -146,7 +145,7 @@ public class AlteraPriceViewer {
                     htmlbody = htmlbody.replace("<!--AAAdatarowsAAA-->", datarows);
                 }
 
-                output.write(htmlbody.getBytes("UTF-8"), 0, htmlbody.getBytes().length);
+                output.write(htmlbody.getBytes("UTF-8"), 0, htmlbody.getBytes("UTF-8").length);
 
                 output.flush();
                 output.close();
