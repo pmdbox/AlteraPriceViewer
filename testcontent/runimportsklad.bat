@@ -1,0 +1,1 @@
+java -jar AlteraPriceViewer.jar 20161010.txt

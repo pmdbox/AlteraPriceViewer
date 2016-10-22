@@ -16,6 +16,13 @@ public class dbImport {
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:test.db");
+
+            Statement stmt = null;
+            stmt=c.createStatement();
+            String sql = "PRAGMA journal_mode = OFF";
+            stmt.executeUpdate(sql);
+            stmt.close();
+
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
