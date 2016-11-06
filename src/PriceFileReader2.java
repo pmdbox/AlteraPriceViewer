@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -12,7 +8,8 @@ public class PriceFileReader2 {
 
     private String filename;
     private File file=null;
-    private FileInputStream inputstream = null;
+//    private FileInputStream inputstream = null;
+    private BufferedInputStream inputstream = null;
     private Scanner reader=null;
     private int currentLineNum;
 
@@ -21,7 +18,7 @@ public class PriceFileReader2 {
         file=new File(filename);
         if(file.exists()) {
             try {
-                inputstream = new FileInputStream(file);
+                inputstream = new BufferedInputStream(new FileInputStream(file));
                 reader = new Scanner(inputstream, "UTF-8");
 /*
                 while (reader.hasNextLine()) {

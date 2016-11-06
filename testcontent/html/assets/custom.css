@@ -1,0 +1,97 @@
+#view-source 
+{       
+    position: fixed;       
+    display: block;       
+    right: 0;       
+    bottom: 0;       
+    margin-right: 40px;       
+    margin-bottom: 40px;       
+    z-index: 900;     
+} 
+#blinkalarmbackground 
+{ 
+    background-image: url("./images/blink.gif");  
+}     
+#goodalarmbackground
+{
+	background: #AAFFAA; 
+}
+.mdl-data-table-custom     
+{         
+    white-space: normal;         
+    overflow-x: auto;     
+}     
+.mdl-data-table-custom tbody tr      
+{         
+    height: 24px;     
+}     
+.mdl-data-table-custom td      
+{         
+    height: 24px;         
+    padding: 4px 7px 2px 7px;     
+}     
+.mdl-data-table-custom th      
+{         
+    padding-left:7px;         
+    padding-right:7px;     
+}     
+.xstyle2     
+{         
+    overflow-x: auto;     
+}     
+.mdl-grid      
+{         
+    padding: 25px;      
+}     
+.xstyle3      
+{         
+    margin: 10px;      
+}     
+#container2 .dygraph-title      
+{        
+    font-size: 16px;        
+    color: rgb( 80,80,80);       
+    font-weight: normal;     
+}
+@font-face 
+{   
+    font-family: 'Material Icons';   
+    font-style: normal;   
+    font-weight: 400;   
+    src: url(MaterialIcons-Regular.eot); 
+    /* For IE6-8 */   
+    src: local('Material Icons'),        
+    local('MaterialIcons-Regular'),        
+    url(MaterialIcons-Regular.woff2) format('woff2'),        
+    url(MaterialIcons-Regular.woff) format('woff'),        
+    url(MaterialIcons-Regular.ttf) format('truetype'); 
+} 
+.material-icons 
+{ 
+    font-family: 'Material Icons'; 
+    font-weight: normal; 
+    font-style: normal; 
+    font-size: 24px;  
+    /* Preferred icon size */ 
+    display: inline-block; 
+    width: 1em; 
+    height: 1em; 
+    line-height: 1; 
+    text-transform: none; 
+    letter-spacing: normal; 
+    word-wrap: normal; 
+    white-space: nowrap; 
+    direction: ltr;  
+    /* Support for all WebKit browsers. */ 
+    -webkit-font-smoothing: antialiased; 
+    /* Support for Safari and Chrome. */ 
+    text-rendering: optimizeLegibility; 
+    /* Support for Firefox. */ 
+    -moz-osx-font-smoothing: grayscale; 
+    /* Support for IE. */ 
+    font-feature-settings: 'liga'; 
+} 
+
+.full-width {
+    width: 100%;
+}

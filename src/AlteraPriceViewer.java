@@ -3,11 +3,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 //import com.sun.org.apache.xpath.internal.operations.String;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +16,13 @@ import java.util.Map;
 public class AlteraPriceViewer {
     public static void main(String[] args) {
 
+        int serverHttpPort=8000;
+        dbImport db = new dbImport();
+
 //****************************************************
 //**********   Import PRICE from TXT file.
 
         if (args.length>0) {
-            dbImport db = new dbImport();
             db.clearTable();
 
             String filename = args[0];
@@ -49,7 +49,7 @@ public class AlteraPriceViewer {
             }
         }
         else{
-            System.out.println("Filename is missing.");
+            System.out.println("Filename for price import is missing.");
         }
 
 //**********   End of import PRICE.
@@ -59,10 +59,11 @@ public class AlteraPriceViewer {
 //**********   Start Web server.
         try
         {
-            HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+            HttpServer server = HttpServer.create(new InetSocketAddress(serverHttpPort), 0);
             server.createContext("/", new StaticFileServer());
             server.setExecutor(null); // creates a default executor
             server.start();
+            System.out.println("Web-server was started succesfully at port number "+serverHttpPort);
         }
         catch (IOException e)
         {
@@ -76,23 +77,36 @@ public class AlteraPriceViewer {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-//            System.out.println(exchange.getRequestURI().getQuery());
-
-            Map <String,String>params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
-/*
-            System.out.println(params.get("text"));
-            System.out.println(params.get("sort"));
-            System.out.println(params.get("sortdirection"));
-*/
             String fileId = exchange.getRequestURI().getPath();
+            Map <String,String>params=null;
+            String datarows=null;
+
+            if(exchange.getRequestURI().getQuery()==null){
+//                System.out.println("Query parameters are absent.");
+            }
+            else{
+                params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
+                dbImport dbselect=new dbImport();
+                String pricedata=null;
+                datarows=dbselect.getSelection(URLDecoder.decode(params.get("text"),"UTF-8"),params.get("sort"),params.get("sortdirection"));
+            }
+
             fileId=fileId.substring(1);
             fileId=fileId.replace("/",File.separator);
-            //System.out.println(fileId);
             if (fileId.isEmpty()){
                 fileId = "index.html";
             }
             System.out.println(fileId);
-            File file = getFile(fileId);
+            File file = new File(fileId);
+            //System.out.println(file.getAbsoluteFile());
+
+            String ext = "";
+            int i = fileId.lastIndexOf('.');
+            int p = Math.max(fileId.lastIndexOf('/'), fileId.lastIndexOf('\\'));
+            if (i > p) {
+                ext = fileId.substring(i+1);
+            }
+            //System.out.println(ext);
 
             if (file == null) {
                 String response = "Error 404 File not found.";
@@ -102,6 +116,40 @@ public class AlteraPriceViewer {
                 output.flush();
                 output.close();
                 System.out.println("404");
+            } else if (ext.equals("html")) {
+                System.out.println("200 HTML");
+                exchange.sendResponseHeaders(200, 0);
+                OutputStream output = exchange.getResponseBody();
+                FileInputStream fs = new FileInputStream(file);
+
+                String htmlbody="";
+                InputStreamReader htmlreader = new InputStreamReader(fs,"UTF-8");
+
+                int bytecontent;
+                while ((bytecontent = htmlreader.read()) != -1) {
+                    htmlbody+=(char) bytecontent;
+                }
+
+                if(params!=null) {
+
+                    htmlbody = htmlbody.replace("AAAtextAAA", URLDecoder.decode(params.get("text"),"UTF-8"));
+                    htmlbody = htmlbody.replace("value=\"" + params.get("sort") + "\"", "value=\"" + params.get("sort") + "\""+" selected=\"selected\"");
+                    htmlbody = htmlbody.replace("value=\"" + params.get("sortdirection") + "\"", "value=\"" + params.get("sortdirection") + "\""+" selected=\"selected\"");
+                }
+                else
+                {
+                    htmlbody = htmlbody.replace("AAAtextAAA", "");
+                }
+
+                if(datarows!=null){
+                    htmlbody = htmlbody.replace("<!--AAAdatarowsAAA-->", datarows);
+                }
+
+                output.write(htmlbody.getBytes("UTF-8"), 0, htmlbody.getBytes("UTF-8").length);
+
+                output.flush();
+                output.close();
+                fs.close();
             } else {
                 System.out.println("200");
                 exchange.sendResponseHeaders(200, 0);
