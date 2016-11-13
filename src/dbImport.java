@@ -121,6 +121,25 @@ public class dbImport {
         }
 
     }
+
+    public void StartTransactuion(){
+        try {
+            c.setAutoCommit(false);
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+    }
+
+    public void FinishTransaction(){
+        try{
+            c.commit();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+    }
 /*
     public String getSelection(String text,String sort,String sortdirection){
         String result=null;

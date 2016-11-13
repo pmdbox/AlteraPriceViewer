@@ -37,6 +37,7 @@ public class AlteraPriceViewer {
             if (ext.equals("txt")){
                 PriceFileReader2 price=new PriceFileReader2(filename);
 
+                db.StartTransactuion();
                 while(price.hasNextRow()){
                     System.out.print("Added "+price.getCurrentLineNum()+" lines.\r");
                     if(price.getCurrentLineNum()>6){
@@ -46,6 +47,7 @@ public class AlteraPriceViewer {
                         price.getNextRow();
                     }
                 }
+                db.FinishTransaction();
             }
         }
         else{
