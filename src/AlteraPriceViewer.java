@@ -86,7 +86,7 @@ public class AlteraPriceViewer {
             }
             else{
                 params=StaticFileServer.queryToMap(exchange.getRequestURI().getQuery());
-                dbImport dbselect=new dbImport();
+                dbSelect dbselect=new dbSelect();
                 String pricedata=null;
                 datarows=dbselect.getSelection(URLDecoder.decode(params.get("text"),"UTF-8"),params.get("sort"),params.get("sortdirection"));
             }
