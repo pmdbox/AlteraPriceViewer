@@ -70,7 +70,7 @@ public class dbSelect {
                     result += rs.getString("partnum");
                     result += "</td>\n";
 
-                    result += "<td  class=\"mdl-data-table__cell--non-numeric\">\n";
+                    result += "<td  class=\"mdl-data-table__cell--non-numeric full-width\">\n";
                     result += rs.getString("description");
                     result += "</td>\n";
 
