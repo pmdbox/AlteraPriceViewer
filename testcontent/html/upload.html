@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="uk">  
+	<head>    
+<meta charset="utf-8">         
+<meta http-equiv="X-UA-Compatible" content="IE=edge">    
+<meta name="description" content="Залишки на складі.">    
+<meta name="viewport" content="width=device-width, initial-scale=1">    
+<title>Залишки на складі.</title>  
+<!-- Add to homescreen for Chrome on Android -->    
+<meta name="mobile-web-app-capable" content="yes">    
+<link rel="icon" sizes="192x192" href="images/android-desktop.png">    
+<!-- Add to homescreen for Safari on iOS -->    
+<meta name="apple-mobile-web-app-capable" content="yes">    
+<meta name="apple-mobile-web-app-status-bar-style" content="black">    
+<meta name="apple-mobile-web-app-title" content="Залишки на складі.">    
+<link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">    
+<!-- Tile icon for Win8 (144x144 + tile color) -->    
+<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">    
+<meta name="msapplication-TileColor" content="#3372DF">    
+<link rel="shortcut icon" href="images/favicon.png" />    
+<link rel="stylesheet" href="assets/material.min.css">    
+<link rel="stylesheet" href="assets/styles.css">    
+<link rel="stylesheet" href="assets/custom.css">    
+<!-- Connecting jQuery to the site. --> 		
+<script type="text/javascript" 
+src="js/jquery-1.8.2.min.js"></script>     
+<script type="text/javascript"  
+src="assets/material.min.js"></script> 	
+		<!---------------------------------->	
+		
+	</head>	
+	<body>    
+		<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">      
+			<!-- Adding sidebar code into html-->
+			<!---------------------------------->
+<header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">        
+	<div class="mdl-layout__header-row">          
+		<span class="mdl-layout-title">Імпорт.
+		</span>        
+	</div>      
+</header>  
+<div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+	<header class="demo-drawer-header">
+		<div  style="text-align:center;">
+			<img src="images/sitelogo.png" width="64" height="64" alt="Sitelogo"><br>
+			<b>Залишки на складі.</b><br> 
+			<span style=\"font-family:verdana;font-size:70%;\">       
+				Версія 1.0		
+			</span>	
+		</div>        	
+	</header>
+	<nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">          
+		<a class="mdl-navigation__link" href="index.html">
+		<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_comfy</i>Залишки</a>          
+		<a class="mdl-navigation__link" href="upload.html">
+		<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">file_upload</i>Імпорт</a>          
+		<div class="mdl-layout-spacer">
+		</div>		    	
+		<div style="text-align: center;">          
+            <a href="http://www.scada.lviv.ua" target="_blank">          	
+			<img src="images/logo.png">          </a>          
+            <p>			&#169; OSS company, 2016 			
+			</p>			
+		</div>        	         
+	</nav>   
+</div> 
+			<main class="mdl-layout__content mdl-color--grey-100">
+<!--			
+				<form action="index.php"  method="GET">
+					<div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+						<label class="mdl-textfield__label" for="datevalue">Дата:
+						</label>  
+						<select name="tagname" class="mdl-textfield__input mdl-cell--4-col xstyle3" id="tagslist">
+							<option value="xxx">xxx</option>
+							<option value="yyy">yyy</option>
+						</select>
+						<label class="mdl-textfield__label" for="tagslist">Назва змінної:
+						</label>
+						<input type="date" name="tagdate" value="12.12.2012" class="mdl-textfield__input mdl-cell--4-col xstyle3" id="datevalue">
+						<input type="submit" name="showgraph" value="Графік" class="mdl-button mdl-js-button mdl-button--raised mdl-cell--2-col xstyle3">&nbsp; 
+						<input type="submit" name="downgraph" value="Файл" class="mdl-button mdl-js-button mdl-button--raised mdl-cell--2-col xstyle3">
+					</div>
+				</form>
+-->				
+
+				<!--
+				<form method="post" action="index.html" name="submit" enctype="multipart/form-data">
+				<div style="min-width: 240px;" class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid"> 
+					
+					<input type="file" name="fileField" id="fileField" class="mdl-textfield__input mdl-cell--9-col xstyle3 inputfile">
+				
+					<input type="submit" name="submit" value="Завантажити" class="mdl-button mdl-js-button mdl-button--raised mdl-cell--3-col xstyle3">
+
+					</div>
+				</form>
+				-->
+				<form method="post" action="upload.html" name="submit" enctype="multipart/form-data">
+					<div style="min-width: 240px;" class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid"> 
+						<div class="mdl-button mdl-js-button mdl-button--raised mdl-cell--3-col xstyle3  fileUpload btn btn-primary">
+							<span>Завантажити</span>
+							<input type="file" class="upload" onchange="this.form.submit()"/>
+						</div>
+					</div>
+				</form>
+				
+				</div>
+			</div>      
+		</main>     
+	</div>       
+</body>
+</html>
